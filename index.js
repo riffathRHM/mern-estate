@@ -24,3 +24,14 @@ app.listen(3000,()=>{
 //we export router from user.route.js and we imoprt name as userRouter
 app.use("/api/user",userRouter);
 app.use("/api/auth",autheRouter);
+//Middeleware error handeling
+app.use((err,req,res,next)=>{
+   const statusCode = err.statusCode || 500;
+   const message = err.message || "internal server Error";
+   return res.status(statusCode).json({
+      success:false,
+      statusCode,
+      message,
+
+   })
+})
